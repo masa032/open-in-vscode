@@ -2,7 +2,7 @@ const spinPath = "/home/spin/src/github.com/Shopify";
 
 const defaultOptions = {
   remoteHost: "",
-  basePath: "",
+  basePath: "D:/智偉的/VScode工作區",
   insidersBuild: false,
   useSpin: false,
   debug: false,
@@ -17,23 +17,23 @@ let previousTimeout = undefined;
 
 // type: "success" | "danger" | "warning"
 function showAlert(type, message, time) {
-    if (previousTimeout !== undefined)
-      clearTimeout(previousTimeout);
+  if (previousTimeout !== undefined)
+    clearTimeout(previousTimeout);
 
-    const status = document.querySelector(".alert");
-    status.classList.remove("show");
-    ["success", "danger", "warning"].map((v) => status.classList.remove(`alert-${v}`));
+  const status = document.querySelector(".alert");
+  status.classList.remove("show");
+  ["success", "danger", "warning"].map((v) => status.classList.remove(`alert-${v}`));
 
-    const statusClass = status.className;
+  const statusClass = status.className;
 
-    status.textContent = message;
-    status.classList.add(`alert-${type}`)
-    status.classList.add("show")
-    status.className = `alert-${type} ${status.className} show`;
+  status.textContent = message;
+  status.classList.add(`alert-${type}`)
+  status.classList.add("show")
+  status.className = `alert-${type} ${status.className} show`;
 
-    previousTimeout = setTimeout(() => {
-      status.className = statusClass;
-    }, time);
+  previousTimeout = setTimeout(() => {
+    status.className = statusClass;
+  }, time);
 }
 
 function restoreOptions() {
@@ -62,21 +62,21 @@ function saveOptions(event) {
     debug: document.getElementById("debug").checked,
   };
 
-  if(options.useSpin && (!options.remoteHost?.trim()?.length)) {
+  if (options.useSpin && (!options.remoteHost?.trim()?.length)) {
     return showAlert("danger", "Please include a remote host when using Spin.", 2000)
   }
 
   document.getElementById("saveMessage").innerHTML = "Saving..."
 
   chrome.storage.sync.set(options)
-  .then(
-    () => document.getElementById("saveMessage").innerHTML ="Saved.",
-    () => showAlert("danger", "Failed to save settings!", 2000)
+    .then(
+      () => document.getElementById("saveMessage").innerHTML = "Saved.",
+      () => showAlert("danger", "Failed to save settings!", 2000)
     )
 }
 
 document.addEventListener("DOMContentLoaded", restoreOptions);
 document.querySelector("form").addEventListener("change", saveOptions);
-document.getElementById("useSpin").addEventListener("change", function() {
+document.getElementById("useSpin").addEventListener("change", function () {
   showSpinPath(this.checked);
 })

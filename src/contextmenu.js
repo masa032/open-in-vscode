@@ -6,7 +6,7 @@ function getOptions() {
     chrome.storage.sync.get(
       {
         remoteHost: "",
-        basePath: "",
+        basePath: "D:/智偉的/VScode工作區",
         insidersBuild: false,
         debug: false,
         useSpin: false,
